@@ -1,0 +1,83 @@
+﻿@model ML.Personal
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GetAll</h2>
+
+@using (Html.BeginForm("Form", "Personal", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-1">
+
+            <button>Agregar</button>
+        </div>
+    </div>
+
+
+}
+<div class="row">
+    @if (Model.Personales != null)
+    {
+        //tabla
+        <table class="table  table-bordered table-responsive table-hover" id="tblLibro">
+            <thead>
+                <tr>
+
+
+                    <td class="text-center" style=" font-weight:bold;">Agregar</td>
+                    <td class="text-center" style=" font-weight:bold;">Nombre</td>
+            
+                    <td class="text-center" style=" font-weight:bold;">DireccionActual</td>
+                    <td class="text-center" style=" font-weight:bold;">Colonia</td>
+                    <td class="text-center" style=" font-weight:bold;">Delegacion</td>
+                    <td class="text-center" style=" font-weight:bold;">CP</td>
+
+
+                    <td class="text-center" style=" font-weight:bold;">Eliminar</td>
+
+
+
+
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+                @foreach (ML.Personal personal in Model.Personales)
+                {
+                    <tr>
+
+                        <td class="text-center"><a class="btn btn-success glyphicon " href="@Url.Action("Add", "Libro", new { IdPersonal = personal.IdPersona })" onclick="return confirm('');"></a></td>
+                        <td>@personal.Nombre @personal.ApellidoPaterno @personal.ApellidoMaterno</td>
+               
+                        <td>@personal.DireccionActual</td>
+                        <td>@personal.Direccion.Colonia</td>
+                        <td>@personal.Direccion.DelegacionOMunicipio</td>
+                        <td>@personal.Direccion.Numero</td>
+
+                        <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Libro", new { IdPersonal = personal.IdPersona })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+
+
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">Ocurrio un error al realizar la consulta </div>
+    }
+
+</div>
